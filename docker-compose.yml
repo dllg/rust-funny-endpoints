@@ -1,0 +1,8 @@
+services:
+  rust-funny-endpoints:
+    build: .
+    image: rust-funny-endpoints
+    ports:
+      - "18080:18080"
+    environment:
+      SERVER_PORT: "18080"
