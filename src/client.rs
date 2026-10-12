@@ -37,6 +37,6 @@ impl HttpClient for Reqwest {
             return Err(Error::Status(status.as_u16()));
         }
         // Some upstreams send JSON with a wrong content type, so parse the bytes ourselves.
-        serde_json::from_slice(&resp.bytes().await?).map_err(|_| Error::Payload("invalid json"))
+        Ok(serde_json::from_slice(&resp.bytes().await?)?)
     }
 }

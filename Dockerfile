@@ -1,13 +1,11 @@
-FROM rust:1-slim-bookworm AS builder
+FROM rust:1-alpine AS builder
+RUN apk add --no-cache build-base
 WORKDIR /src
 COPY . .
 RUN cargo build --release --locked
 
-FROM debian:bookworm-slim
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates curl \
-    && rm -rf /var/lib/apt/lists/* \
-    && useradd --system --no-create-home app
+FROM alpine:3
+RUN apk add --no-cache ca-certificates curl && adduser -S -H app
 COPY --from=builder /src/target/release/funny-endpoints /usr/local/bin/funny-endpoints
 USER app
 ENV SERVER_PORT=18080

@@ -35,10 +35,15 @@ with `tower::ServiceExt::oneshot`, the Rust counterpart of go's `httptest`.
 cargo run --release           # listens on 0.0.0.0:18080
 SERVER_PORT=8111 cargo run    # other port
 RUST_LOG=debug cargo run      # log level
-docker compose up -d --build  # or in docker
+docker compose up -d --build  # or in docker (alpine image)
 ```
 
 ```bash
 $ curl http://localhost:18080/v1/random
 {"message":"Dad Joke: What do you call an eagle who can play the piano? Talonted!"}
 ```
+
+## Docker image
+
+Alpine based (static musl binary, ~27 MB), built for `linux/amd64` and `linux/arm64` by CI; pushed to
+`ghcr.io/dllg/rust-funny-endpoints:latest` from `main`. Locally `docker build .` builds for your own architecture.

@@ -42,7 +42,7 @@ async fn non_2xx_and_bad_json_are_errors() {
         .await;
     assert!(matches!(
         Reqwest::default().get(&bad.uri(), &[]).await,
-        Err(Error::Payload(_))
+        Err(Error::Json(_))
     ));
 }
 

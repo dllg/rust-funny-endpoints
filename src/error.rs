@@ -9,6 +9,8 @@ pub enum Error {
     Request(#[from] reqwest::Error),
     #[error("upstream returned status {0}")]
     Status(u16),
+    #[error("upstream sent invalid json: {0}")]
+    Json(#[from] serde_json::Error),
     #[error("unexpected payload from {0}")]
     Payload(&'static str),
 }
