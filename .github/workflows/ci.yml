@@ -75,7 +75,7 @@ jobs:
 
   image:
     if: github.ref == 'refs/heads/main'
-    needs: docker
+    needs: [test, msrv, docker]
     runs-on: ubuntu-latest
     permissions:
       contents: read
