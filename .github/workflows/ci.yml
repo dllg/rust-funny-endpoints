@@ -8,6 +8,11 @@ on:
 permissions:
   contents: read
 
+# Queue main runs (never cancel a publish); cancel superseded PR runs.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   test:
     strategy:

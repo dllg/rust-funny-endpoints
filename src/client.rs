@@ -19,6 +19,11 @@ pub struct Reqwest(reqwest::Client);
 impl Default for Reqwest {
     fn default() -> Self {
         let client = reqwest::Client::builder()
+            .user_agent(concat!(
+                env!("CARGO_PKG_NAME"),
+                "/",
+                env!("CARGO_PKG_VERSION")
+            ))
             .timeout(Duration::from_secs(10))
             .build()
             .expect("static client config is valid");
